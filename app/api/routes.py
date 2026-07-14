@@ -11,9 +11,13 @@ def run_workflow():
         "requirements": "Build an AI SDLC Automation Platform",
         "user_stories": "",
         "review_status": "",
-        "feedback": ""
+        "feedback": "",
+        "design_doc": ""
         }
     )
+    
+    print("\n=======FINAL STATE======")
+    print(result)
     return result
         # "status": "Workflow Started",
         # "message": "LangGraph workflow here"
