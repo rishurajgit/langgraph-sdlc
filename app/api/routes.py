@@ -1,14 +1,17 @@
 from fastapi import APIRouter
 from app.graph.workflow import graph
+from app.api.schemas import WorkflowRequest
+
+
 
 router = APIRouter()
 
 @router.post("/run")
-def run_workflow():
+def run_workflow(request: WorkflowRequest):
     
     result = graph.invoke(
         {
-        "requirements": "Build an AI SDLC Automation Platform",
+        "requirements": request.requirements,
         "user_stories": "",
         "review_status": "",
         "feedback": "",
@@ -16,8 +19,8 @@ def run_workflow():
         }
     )
     
-    print("\n=======FINAL STATE======")
-    print(result)
+    # print("\n=======FINAL STATE======")
+    # print(result)
     return result
         # "status": "Workflow Started",
         # "message": "LangGraph workflow here"
