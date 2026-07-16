@@ -8,7 +8,7 @@ from app.nodes.revise_user_story import revise_user_story_node
 from app.nodes.design import design_node
 from app.nodes.design_review import design_review_node
 from app.nodes.revise_design import revise_design_node
-
+from app.nodes.code_generation import code_generation_node
 
 
 builder = StateGraph(SDLCState)
@@ -24,6 +24,8 @@ builder.add_node("revise_story", revise_user_story_node)
 builder.add_node("design", design_node)
 builder.add_node("design_review", design_review_node)
 builder.add_node("revise_design", revise_design_node)
+
+builder.add_node("generate_code", code_generation_node)
 
 
 #Basic Flow
@@ -57,7 +59,7 @@ builder.add_edge("design", "design_review")
 
 def design_review_router(state: SDLCState):
     if state["design_review_status"] == "approved":
-        return END
+        return "generate_code"
     
     return "revise_design"
 
@@ -65,13 +67,15 @@ builder.add_conditional_edges(
     "design_review",
     design_review_router,
     {
-        END: END,
-        "revise_design": "revise_design"
+        # END: END,
+        "revise_design": "revise_design",
+        "generate_code": "generate_code"
     }
 )
 
 # builder.add_edge("design", END)
 builder.add_edge("revise_design", "design_review")
+builder.add_edge("generate_code", END)
 
 
 graph = builder.compile()

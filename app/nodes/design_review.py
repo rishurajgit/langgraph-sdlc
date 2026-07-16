@@ -15,7 +15,7 @@ def design_review_node(state: SDLCState):
             "design_feedback": ""
         }
         
-    feedback = input("Enter Design Feedback")
+    feedback = input("Enter Design Feedback:")
     return{
         "design_review_status": "feedback",
         "design_feedback": feedback

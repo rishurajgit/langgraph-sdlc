@@ -12,4 +12,5 @@ class SDLCState(TypedDict):
     design_doc: str
     design_review_status: str
     design_feedback: str
+    generated_code: str
     
