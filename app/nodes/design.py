@@ -8,14 +8,45 @@ def design_node(state: SDLCState):
     Base on the following user stories, generate a Software Design Document.
     
     Include:
-    System Overview,
-    Functional Requirements,
-    Non-functional Requirements,
-    High-level Architecture,
-    Suggested Tech Stack,
-    Database Design,
-    API endpoints,
-    Modules
+    1. System Overview,
+    - (2-3 sentences)
+    
+    2. Functional Requirements,
+    - maximum 6 bullet points
+    
+    3. Non-functional Requirements,
+    - Maximum 5 bullet points
+    
+    4. High-level Architecture,
+    - Explain in  5-6 bullet points
+    
+    5. Suggested Tech Stack,
+    - Frontend
+    - Backend
+    - Database
+    - AI/LLM
+    - Deployment
+    
+    6. Database Design,
+    - Mention only main entities
+    - Maximum 8 entities
+    
+    7. API endpoints,
+    - Only important endpoint
+    - Format:
+      Method / endpoint - Purpose
+    
+    8. Modules
+    - Maximum 8 modules
+    
+    Rules:
+    1. Keep the entire document under 500 words.
+    2. Use Markdown headings.
+    3. Use bullet points instead of long paragraphs.
+    4. Do not include implementation details.
+    5. Do not generate source code.
+    6. Do not repeat information.
+    7. Return ONLY the Design Document.
     
     User Stories:
     {state["user_stories"]}
