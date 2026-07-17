@@ -35,9 +35,7 @@ Generate ONLY:
 - Folder structure
 - Main files
 - Class names
-- Function names
 - API endpoint names
-- TODO comments
 
 Rules:
 

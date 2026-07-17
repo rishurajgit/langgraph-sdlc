@@ -9,35 +9,32 @@ def design_node(state: SDLCState):
     
     Include:
     1. System Overview,
-    - (2-3 sentences)
+    - (1-2 sentences)
     
     2. Functional Requirements,
-    - maximum 6 bullet points
+    - maximum 1-2 bullet points
     
     3. Non-functional Requirements,
-    - Maximum 5 bullet points
+    - Maximum 2 bullet points
     
     4. High-level Architecture,
-    - Explain in  5-6 bullet points
+    - Explain in  1-2 bullet points
     
     5. Suggested Tech Stack,
-    - Frontend
     - Backend
     - Database
-    - AI/LLM
-    - Deployment
     
     6. Database Design,
     - Mention only main entities
-    - Maximum 8 entities
+    - Maximum 3 entities
     
     7. API endpoints,
     - Only important endpoint
     - Format:
-      Method / endpoint - Purpose
+    Method / endpoint - Purpose
     
     8. Modules
-    - Maximum 8 modules
+    - Maximum 2 modules
     
     Rules:
     1. Keep the entire document under 500 words.

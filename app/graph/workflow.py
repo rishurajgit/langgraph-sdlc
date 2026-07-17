@@ -11,6 +11,10 @@ from app.nodes.revise_design import revise_design_node
 from app.nodes.code_generation import code_generation_node
 from app.nodes.code_review import code_review_node
 from app.nodes.revise_code import revise_code_node
+from app.nodes.security_review import security_review_node
+from app.nodes.fix_security import fix_security_node
+
+
 
 builder = StateGraph(SDLCState)
 
@@ -30,6 +34,9 @@ builder.add_node("generate_code", code_generation_node)
 
 builder.add_node("code_review", code_review_node)
 builder.add_node("revise_code", revise_code_node)
+
+builder.add_node("security_review", security_review_node)
+builder.add_node("fix_security", fix_security_node)
 
 
 #Basic Flow
@@ -86,7 +93,8 @@ builder.add_edge("generate_code", "code_review")
 def code_review_router(state: SDLCState):
     
     if state["code_review_status"] == "approved":
-        return END
+        # return END
+        return "security_review"
 
     return "revise_code"
 
@@ -95,12 +103,31 @@ builder.add_conditional_edges(
     "code_review",
     code_review_router,
     {
-        END: END,
+        # END: END,
+        "security_review": "security_review",
         "revise_code": "revise_code",
     },
 )
 
 builder.add_edge("revise_code", "code_review")
 
+# Security review
+
+def security_review_router(state: SDLCState):
+    
+    if state["security_review_status"] == "approved":
+        return END
+
+    return "fix_security"
+
+builder.add_conditional_edges(
+    "security_review",
+    security_review_router,
+    {
+        END: END,
+        "fix_security": "fix_security",
+    }
+)
+builder.add_edge("fix_security", "security_review")
 
 graph = builder.compile()
