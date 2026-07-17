@@ -16,3 +16,8 @@ class WorkflowResponses(BaseModel):
     generated_code: str
     code_review_status: str
     code_feedback: str
+    
+    test_cases: str
+    test_review_status: str
+    test_feedback: str
+    

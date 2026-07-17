@@ -26,3 +26,4 @@ class SDLCState(TypedDict):
     test_cases: str
     test_review_status: str
     test_feedback: str
+    test_review_attempts: int

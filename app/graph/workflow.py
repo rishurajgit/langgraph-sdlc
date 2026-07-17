@@ -14,7 +14,8 @@ from app.nodes.revise_code import revise_code_node
 from app.nodes.security_review import security_review_node
 from app.nodes.fix_security import fix_security_node
 from app.nodes.generate_test_cases import generate_test_cases_node
-
+from app.nodes.test_case_review import test_case_review_node
+from app.nodes.revise_test_cases import revise_test_cases_node
 
 builder = StateGraph(SDLCState)
 
@@ -39,6 +40,9 @@ builder.add_node("security_review", security_review_node)
 builder.add_node("fix_security", fix_security_node)
 
 builder.add_node("generate_test_cases", generate_test_cases_node)
+builder.add_node("test_case_review", test_case_review_node)
+builder.add_node("revise_test_cases", revise_test_cases_node)
+
 
 #Basic Flow
 
@@ -131,6 +135,32 @@ builder.add_conditional_edges(
     }
 )
 builder.add_edge("fix_security", "security_review")
-builder.add_edge("generate_test_cases", END)
+# builder.add_edge("generate_test_cases", END)
+builder.add_edge("generate_test_cases", "test_case_review")
+
+def test_case_review_router(state: SDLCState):
+    if state["test_review_status"] == "approved":
+        return END
+    
+    if state["test_review_attempts"] >=2:
+        print("\nMaximum review attempts reached.")
+        print("Proceeding with current test cases.\n")
+        return END
+    
+    return "revise_test_cases"
+
+builder.add_conditional_edges(
+    "test_case_review",
+    test_case_review_router,
+    {
+        END: END,
+        "revise_test_cases": "revise_test_cases",
+    },
+)
+
+builder.add_edge(
+    "revise_test_cases",
+    "test_case_review"
+)
 
 graph = builder.compile()
