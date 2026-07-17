@@ -15,7 +15,14 @@ def run_workflow(request: WorkflowRequest):
         "user_stories": "",
         "review_status": "",
         "feedback": "",
-        "design_doc": ""
+    
+        "design_doc": "",
+        "design_review_status": "",
+        "design_feedback": "",
+        
+        "generated_code": "",
+        "code_review_status": "",
+        "code_feedback": "",
         }
     )
     
