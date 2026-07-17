@@ -28,7 +28,7 @@ I want <feature>,
 So that <benefit>.
 
 Rules:
-- Maximum 5 user stories.
+- Maximum 2 user stories.
 - Each story should be 2-3 lines.
 - Prioritize core functionality.
 - Return only the user stories.

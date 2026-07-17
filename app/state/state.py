@@ -22,3 +22,7 @@ class SDLCState(TypedDict):
     security_review_status: str
     security_feedback: str
     secured_code: str
+    
+    test_cases: str
+    test_review_status: str
+    test_feedback: str
