@@ -1,11 +1,24 @@
 from app.state.state import SDLCState
 from app.services.llm import invoke_llm
+from app.services.memory import get_memory_context
+
 
 def design_node(state: SDLCState):
     
+    memory_context = get_memory_context(
+        state["requirements"]
+    )
+    
     design = f"""
     You are a Senior Software Architect.
-    Base on the following user stories, generate a Software Design Document.
+    
+    Previous Project Memory:
+    {memory_context}
+    
+    User Stories:
+    {state["user_stories"]}
+    
+    generate a  concise Software Design Document.
     
     Include:
     1. System Overview,
@@ -25,7 +38,6 @@ def design_node(state: SDLCState):
     - Database
     
     6. Database Design,
-    - Mention only main entities
     - Maximum 3 entities
     
     7. API endpoints,

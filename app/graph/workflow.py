@@ -217,6 +217,4 @@ builder.add_conditional_edges(
 
 builder.add_edge("deployment", END)
 
-graph = builder.compile(
-    checkpointer= checkpointer
-)
+graph = builder.compile()
