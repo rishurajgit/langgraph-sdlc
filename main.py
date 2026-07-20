@@ -1,6 +1,11 @@
-def main():
-    print("Hello from langgraph-sdlc!")
+from fastapi import FastAPI
+from app.api.routes import router
 
 
-if __name__ == "__main__":
-    main()
+app = FastAPI(
+    title="LangGraph SDLC",
+    description="SDLC Automation using LangGraph by AI"
+)
+
+
+app.include_router(router)

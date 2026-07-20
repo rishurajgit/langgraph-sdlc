@@ -1,0 +1,39 @@
+from typing import TypedDict
+
+class SDLCState(TypedDict):
+    # """
+    # Shared state across the entire SDLC workflow.
+    # """
+    
+    requirements: str
+    user_stories: str
+    review_status: str
+    feedback: str
+    
+    design_doc: str
+    design_review_status: str
+    design_feedback: str
+    
+    generated_code: str
+    code_review_status: str
+    code_review_attempts: int
+    
+    code_feedback: str
+    
+    security_review_status: str
+    security_feedback: str
+    security_review_attempts: int
+    secured_code: str
+    
+    
+    test_cases: str
+    test_review_status: str
+    test_feedback: str
+    test_review_attempts: int
+    
+    qa_status: str
+    qa_report: str
+    qa_attempts: int
+    
+    deployment_status: str
+    deployment_message: str
