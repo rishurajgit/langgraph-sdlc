@@ -3,6 +3,7 @@ from app.state.state import SDLCState
 
 
 def security_review_node(state: SDLCState):
+    attempts = state["security_review_attempts"] + 1
 
     prompt = f"""
 You are a Security Reviewer.

@@ -16,14 +16,21 @@ class SDLCState(TypedDict):
     
     generated_code: str
     code_review_status: str
+    code_review_attempts: int
     
     code_feedback: str
     
     security_review_status: str
     security_feedback: str
+    security_review_attempts: int
     secured_code: str
+    
     
     test_cases: str
     test_review_status: str
     test_feedback: str
     test_review_attempts: int
+    
+    qa_status: str
+    qa_report: str
+    qa_attempts: int

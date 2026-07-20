@@ -22,12 +22,19 @@ def run_workflow(request: WorkflowRequest):
         
         "generated_code": "",
         "code_review_status": "",
+        "code_review_attempts": 0,
         "code_feedback": "",
         
         "test_cases": "",
         "test_review_status": "",
         "test_feedback": "",
         "test_review_attempts": 0,
+        
+        "security_review_attempts": 0,
+        
+        "qa_status": "",
+        "qa_report": "",
+        "qa_attempts": 0,
         }
     )
     

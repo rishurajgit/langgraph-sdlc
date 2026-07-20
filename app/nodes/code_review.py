@@ -32,82 +32,57 @@ from app.state.state import SDLCState
 from app.services.llm import invoke_llm
 
 def code_review_node(state: SDLCState):
+    attempts = state["code_review_attempts"] + 1
     
-    # prompt = f"""
-    # You are a Senior Engineer perfomring a code review.
-    # Review the following generated source code.
     
-    # Generated code:
-    # {state["generated_code"]}
-    
-    # Evalute:
-    # 1. Code Quality
-    # 2. Readability
-    # 3. Maintainability
-    # 4. Naming Conventions
-    # 5. Architecture
-    # 6. Error Handling
-    # 7. Best Practice
-    
-    # Rules:
-    # - if the code is acceptable, respond exactly as:
-    
-    # STATUS: approved
-    
-    # - Otherwise respond exactly as:
-    # STATUS: feedback
-    
-    # Feedback:
-    # <your feedback>
-    
-    # Do not rewrite the code.
-    # Keep the feedback concise.
-    # """
     prompt = f"""
-You are a Senior Software Engineer performing a code review.
+You are a Senior Software Architect.
 
-Review the following generated project skeleton.
+Review this project skeleton.
 
-Generated Code:
+Project Skeleton:
 
 {state["generated_code"]}
 
 Evaluate ONLY:
 
-1. Naming
-2. Architecture
-3. Separation of Concerns
-4. Folder Organization
+- Folder structure
+- Module organization
+- Naming
+- Separation of concerns
+- Architecture
+
+Ignore:
+- Missing business logic
+- Missing CRUD
+- Missing authentication implementation
+- Missing database implementation
+- Missing tests
 
 Decision Rules:
 
-- If there are only MINOR improvements or style suggestions,
-  return:
+- If architecture is acceptable, return:
 
 STATUS: approved
 
 Feedback:
-<optional suggestions>
+None
 
-- Return STATUS: feedback ONLY if there are MAJOR architectural,
-  structural, or design problems that must be fixed before proceeding.
+- Return STATUS: feedback ONLY if there are major architectural issues.
 
-Keep feedback under 50 words.
-
-Do not rewrite the code.
-Reply ONLY in this format:
+Reply ONLY in one of these formats:
 
 STATUS: approved
 
 Feedback:
-...
+None
 
 OR
 
 STATUS: feedback
 
 Feedback:
-...
+<max 30 words>
 """
         
     review = invoke_llm(prompt)
@@ -118,7 +93,8 @@ Feedback:
     if "STATUS: APPROVED" in review.upper():
         return {
             "code_review_status": "approved",
-            "code_feedback": ""
+            "code_feedback": "",
+            "code_review_attempts": attempts
         }
 
     # feedback = review.split("Feedback:")[-1].strip()
@@ -130,5 +106,6 @@ Feedback:
 
     return {
         "code_review_status": "feedback",
-        "code_feedback": feedback
+        "code_feedback": feedback,
+        "code_review_attempts": attempts
     }
