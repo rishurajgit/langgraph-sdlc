@@ -19,6 +19,8 @@ from app.nodes.revise_test_cases import revise_test_cases_node
 from app.nodes.qa_testing import qa_testing_node
 from app.nodes.deployment import deployment_node
 
+from app.checkpoint.sqlite_checkpointer import checkpointer
+
 builder = StateGraph(SDLCState)
 
 #Register Nodes
@@ -215,4 +217,6 @@ builder.add_conditional_edges(
 
 builder.add_edge("deployment", END)
 
-graph = builder.compile()
+graph = builder.compile(
+    checkpointer= checkpointer
+)
