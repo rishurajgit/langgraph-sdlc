@@ -34,3 +34,6 @@ class SDLCState(TypedDict):
     qa_status: str
     qa_report: str
     qa_attempts: int
+    
+    deployment_status: str
+    deployment_message: str

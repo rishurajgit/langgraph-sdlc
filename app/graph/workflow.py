@@ -17,7 +17,7 @@ from app.nodes.generate_test_cases import generate_test_cases_node
 from app.nodes.test_case_review import test_case_review_node
 from app.nodes.revise_test_cases import revise_test_cases_node
 from app.nodes.qa_testing import qa_testing_node
-
+from app.nodes.deployment import deployment_node
 
 builder = StateGraph(SDLCState)
 
@@ -46,6 +46,8 @@ builder.add_node("test_case_review", test_case_review_node)
 builder.add_node("revise_test_cases", revise_test_cases_node)
 
 builder.add_node("qa_testing", qa_testing_node)
+
+builder.add_node("deployment", deployment_node)
 
 
 #Basic Flow
@@ -192,12 +194,12 @@ builder.add_edge(
 def qa_testing_router(state: SDLCState):
     
     if state["qa_status"] == "PASS":
-        return END
+        return "deployment"
     
     if state["qa_attempts"] >= 2:
         print("\nMaximum QA attempts reached.")
         print("Ending workflow.\n")
-        return END
+        return "deployment"
 
     return "generate_code"
 
@@ -205,9 +207,12 @@ builder.add_conditional_edges(
     "qa_testing",
     qa_testing_router,
     {
-        END: END,
+        # END: END,
+        "deployment": "deployment",
         "generate_code": "generate_code",
     },
 )
+
+builder.add_edge("deployment", END)
 
 graph = builder.compile()

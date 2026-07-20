@@ -35,6 +35,11 @@ def run_workflow(request: WorkflowRequest):
         "qa_status": "",
         "qa_report": "",
         "qa_attempts": 0,
+        
+        
+        "deployment_status": "",
+        "deployment_message": ""
+        
         }
     )
     

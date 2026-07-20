@@ -21,3 +21,6 @@ class WorkflowResponses(BaseModel):
     test_review_status: str
     test_feedback: str
     
+    deployment_status: str
+    deployment_message: str
+    
